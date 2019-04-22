@@ -21,8 +21,8 @@ This demo uses the approach presented by Craig Scott in https://crascit.com/2015
 ```bash
 git clone https://github.com/bast/gtest-demo.git
 cd gtest-demo
-mkdir build
-cd build
+mkdir target
+cd target
 cmake ..
 cmake --build .
 ```
@@ -46,9 +46,7 @@ Total Test time (real) =   0.00 sec
 
 Or directly using `unit_tests`:
 ```
-$ ./target/bin/unit_tests
-
-unit_tests --gtest_death_test_style=fast
+$ ./bin/unit_tests
 [==========] Running 12 tests from 2 test cases.
 [----------] Global test environment set-up.
 [----------] 6 tests from ExampleTest
