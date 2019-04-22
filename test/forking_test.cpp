@@ -7,6 +7,9 @@
 
 class ForkingTest : public testing::Test {
 public:
+    static void SetUpTestCase() {
+        Example::res = 0.0;
+    }
      ForkingTest() {
         m_pid = fork();
     }
@@ -66,6 +69,8 @@ TEST_F(ForkingTest, subtract)
 TEST_F(ForkingTest, multiply_with_zero)
 {
     if (isParent()) return; // only children test
+
+    ::testing::FLAGS_gtest_death_test_style = "fast";
 
     EXPECT_EXIT(example.multiply_numbers(2.0, 0.0), testing::ExitedWithCode(1),"");
 }
