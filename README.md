@@ -46,23 +46,56 @@ Total Test time (real) =   0.00 sec
 
 Or directly using `unit_tests`:
 ```
-$ ./bin/unit_tests
+$ ./target/bin/unit_tests
 
-[==========] Running 2 tests from 1 test case.
+unit_tests --gtest_death_test_style=fast
+[==========] Running 12 tests from 2 test cases.
 [----------] Global test environment set-up.
-[----------] 2 tests from example
-[ RUN      ] example.add
-[       OK ] example.add (0 ms)
-[ RUN      ] example.subtract
-[       OK ] example.subtract (0 ms)
-[----------] 2 tests from example (1 ms total)
+[----------] 6 tests from ExampleTest
+[ RUN      ] ExampleTest.add
+[       OK ] ExampleTest.add (1 ms)
+[ RUN      ] ExampleTest.subtract
+[       OK ] ExampleTest.subtract (0 ms)
+[ RUN      ] ExampleTest.multiply_with_zero
+[       OK ] ExampleTest.multiply_with_zero (4 ms)
+[ RUN      ] ExampleTest.multiply
+[       OK ] ExampleTest.multiply (0 ms)
+[ RUN      ] ExampleTest.devide_by_zero
+[       OK ] ExampleTest.devide_by_zero (136 ms)
+[ RUN      ] ExampleTest.divide
+[       OK ] ExampleTest.divide (0 ms)
+[----------] 6 tests from ExampleTest (142 ms total)
+
+[----------] 6 tests from ForkingTest
+[ RUN      ] ForkingTest.add
+[       OK ] ForkingTest.add (4 ms)
+[ RUN      ] ForkingTest.subtract
+[       OK ] ForkingTest.subtract (3 ms)
+[ RUN      ] ForkingTest.multiply_with_zero
+[       OK ] ForkingTest.multiply_with_zero (9 ms)
+[ RUN      ] ForkingTest.multiply
+[       OK ] ForkingTest.multiply (3 ms)
+[ RUN      ] ForkingTest.divide_by_zero
+[       OK ] ForkingTest.divide_by_zero (176 ms)
+[ RUN      ] ForkingTest.divide
+[       OK ] ForkingTest.divide (3 ms)
+[----------] 6 tests from ForkingTest (199 ms total)
 
 [----------] Global test environment tear-down
-[==========] 2 tests from 1 test case ran. (1 ms total)
-[  PASSED  ] 2 tests.
-
+[==========] 12 tests from 2 test cases ran. (341 ms total)
+[  PASSED  ] 12 tests.
 ```
 
+## Modifications
+
+I Have modified the original test to use the fork as proposed by
+[Daniel Goldfarb](https://github.com/DanielGoldfarb).
+And added some testcases with some peculiar results to test the fork:
+- It will now check for the programmed abort() when trying to do a divide by zero.
+- It will also check for exit(1) if the result of a multiply results in 0.0. 
+
+The test will run fine when run as `unit_tests --gtest_death_test_style=fast` but will fail 
+with `unit_tests --gtest_death_test_style=threadsafe` :-(. I am still trying to figure out why...
 
 ## Acknowledgments
 
