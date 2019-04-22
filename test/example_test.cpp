@@ -35,8 +35,6 @@ TEST_F(ExampleTest, multiply_with_zero)
 {
     if (isParent()) return; // only children test
 
-    ::testing::FLAGS_gtest_death_test_style = "fast";
-
     EXPECT_EXIT(example.multiply_numbers(2.0, 0.0), testing::ExitedWithCode(1),"");
 }
 
